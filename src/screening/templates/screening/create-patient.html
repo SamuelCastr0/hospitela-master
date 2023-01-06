@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Add New Patient{% endblock %}
+{% block content %}
+<h1 class="title">Add New Patient</h1>
+<form action="{% url 'create-patient' %}" method="post">
+    {% csrf_token %}
+    <label for="patient_name">Nome:</label>
+    <input class="input-hospital" type="text" name="patient_name" id="patient_name" required>
+    <label for="patient_age">Age:</label>
+    <input class="input-hospital" type="text" name="patient_age" id="patient_age" required>
+    <label for="patient_cpf">CPF:</label>
+    <input class="input-hospital" type="text" name="patient_cpf" id="patient_cpf" required>
+    <label for="patient_address">Address:</label>
+    <input class="input-hospital" type="text" name="patient_address" id="patient_address" required>
+    <label for="patient_phone">Phone:</label>
+    <input class="input-hospital" type="text" name="patient_phone" id="patient_phone" required>
+
+    <button class="button-black" style="margin-top: 30px" type="submit">Create Patient</button>
+</form>
+{% endblock %}

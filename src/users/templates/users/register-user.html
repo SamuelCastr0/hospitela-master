@@ -1,0 +1,34 @@
+{% extends 'screening/base.html' %}
+{% load static %}
+{% block title %}User register{% endblock %}
+{% block content %}
+    <h1 class="title">User register</h1>
+    <form action="{% url 'register-user' %}" method="post">
+        {% csrf_token %}
+        <lable for="name">Name:</lable>
+        <input class="input-hospital" type="text" name="name" id="name">
+        <lable for="email">Email:</lable>
+        <input class="input-hospital" type="email" name="email" id="email">
+        <lable for="password">Password:</lable>
+        <input class="input-hospital" type="password" name="password" id="password">
+        <lable for="confirm-password">Confirm Password:</lable>
+        <input class="input-hospital" type="password" name="confirm-password" id="confirm-password">
+        
+        <p>Please, select the user's occupation:</p>
+        <div class="flex-flow">
+            <div class="flex-flow">
+                <input class="checkbox spacing" type="radio" id="occupation1" name="occupation" value="1" >
+                <label class="spacing" for="occupation1">Attendant</label>
+            </div>
+            <div class="flex-flow">
+                <input class="checkbox spacing" type="radio" id="occupation2" name="occupation" value="2" >
+                <label class="spacing" for="occupation2">Nurse</label>
+            </div>
+            <div class="flex-flow">
+                <input class="checkbox spacing" type="radio" id="occupation3" name="occupation" value="3" >
+                <label class="spacing" for="occupation3">Medic</label>
+            </div>
+        </div>
+        <button class="button-black" type="submit">Create User</button>
+    </form>
+{% endblock %}

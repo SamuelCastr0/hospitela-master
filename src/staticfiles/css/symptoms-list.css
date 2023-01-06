@@ -1,0 +1,120 @@
+.symptoms-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 3px;
+}
+
+.symptom-checkbox {
+    visibility: hidden;
+    position: absolute;
+    z-index: 3;
+}
+.symptom-box {
+    height: 120px;
+    padding: 7px;
+    text-align: center;
+    color: white;
+    font-weight: 400;
+    text-transform: uppercase;
+
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+    transition: background .3s;
+ }
+
+.symptom-box.active  {
+    background: #737373;
+ }
+.symptom-box:hover  {
+    background: #737373;
+ }
+button.symptom-box:hover {
+    background: #737373;
+ }
+.position-relative{
+    position: relative;
+}
+.points {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 6px;
+    margin-right: 4px;
+    width: 10px;
+    height: 20px;
+    background-image: radial-gradient(circle, white 2px, transparent 2px);
+    background-size: 100% 33.33%;
+
+    opacity: 0;
+
+    cursor: pointer;
+    transition: opacity .3s;
+}
+.points.active {
+    opacity: 1;
+    visibility: visible;
+}
+.dropdown-config {
+    cursor: pointer;
+    position: absolute;
+    /*margin: 10px 15px 0 0;*/
+    top: 0;
+    right: 0;
+    z-index: 5;
+    border: #737373 solid 1px;
+
+    opacity: 0;
+
+    background: white;
+    visibility: hidden;
+    transition: opacity .3s;
+}
+.dropdown-config.active {
+    visibility: visible;
+    opacity: 1;
+}
+.dropdown-config li{
+    padding: 2px;
+    background: white;
+
+    transition: background .3s;
+}
+.dropdown-config li:hover{
+    background: #AAA;
+}
+#cross {
+   width: 60px;
+   height: 60px;
+   position: relative;
+}
+
+#cross:before, #cross:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+}
+
+#cross:before {
+  left: 50%;
+  width: 5%;
+  margin-left: -4%;
+  height: 100%;
+}
+
+#cross:after {
+    top: 50%;
+    height: 5%;
+    margin-top: -4%;
+    margin-left: -50%;
+    width: 100%;
+    background: white;
+}

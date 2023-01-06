@@ -1,0 +1,58 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Hospital{% endblock %}
+
+
+{% block content %}
+
+    <div class="index-wrapper">
+        <div>
+            <h2 class="subtitle">Patients awaiting triage</h2>
+            <ul style="margin-top: 30px">
+                {% if registered_patients %}
+                    {% for patient in registered_patients %}
+                        <li class="list-hospital-grid">
+                            <a href="{% url 'register-symptoms' pk=patient.pk %}"><div class="list-row-hospital-black">{{ patient.name }}</div></a>
+                            <a class="list-row-button-black" href="{% url 'register-symptoms' pk=patient.pk %}"><button class="arrow"></button></a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>
+                        <h2 class="subtitle" style="margin: 30px">No patients registered</h2>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div>
+            <h1 class="subtitle">Patients awaiting medical care</h1>
+            <ul style="margin-top: 30px">
+                    {% if attended_patients %}
+                    {% for patient in attended_patients %}
+                            <li class="list-hospital-grid">
+
+                                <a href="{% url 'generate-diagnostic' pk=patient.pk %}"><div class="list-row-hospital-black">{{ patient.name }}</div></a>
+                                <a class="list-row-button-black
+                                 {% if patient.priority == 4 %}
+                                    color-red
+                                 {% elif patient.priority == 3 %}
+                                    color-orange
+                                 {% elif patient.priority == 2 %}
+                                    color-yellow
+                                 {% elif patient.priority == 1 %}
+                                    color-blue
+                                 {% endif %}
+                                " href="{% url 'generate-diagnostic' pk=patient.pk %}"><button class="arrow"></button></a>
+                            </li>
+<!--                            <tr>-->
+<!--                                <td>{{ patient.name }}<span>&#45;&#45;{{ patient.priority }}&#45;&#45;<a href=""><button>Generate Diagnostic</button></a></span></td>-->
+<!--                            </tr>-->
+                        {% endfor %}
+                    {% else %}
+                        <li>
+                            <h2 class="subtitle" style="margin: 30px">No patients attended</h2>
+                        </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

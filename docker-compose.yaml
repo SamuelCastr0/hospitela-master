@@ -1,0 +1,39 @@
+version: "3.1"
+
+services:
+  django: &django
+    build: .
+    restart: always
+    container_name: django-server
+    environment:
+      - DJANGO_SETTINGS_MODULE=hospital.settings #change django project name
+    expose:
+      - 8000
+    volumes:
+      - ./src:/src
+    command: >
+      sh -c "python manage.py migrate
+      && python manage.py collectstatic --noinput
+      && gunicorn hospital.wsgi:application -w 3 -b :8000"  #change django project name
+    networks:
+      - web
+
+  nginx:
+    image: nginx
+    container_name: nginx-server
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./etc/nginx:/etc/nginx/conf.d/
+      - ./log/nginx:/var/log/nginx
+      - ./src/media:/var/www/media
+      - ./src/static:/var/www/static
+      - ./etc/cert:/etc/openssl/
+    networks:
+      - web
+    depends_on:
+      - django
+
+networks:
+  web:

@@ -1,0 +1,140 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Register Symptoms{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% endblock %}
+{% block content %}
+
+    <h1 class="title">Register Symptoms</h1>
+    <div class="flex-flow">
+        <h2 class="subtitle">Patient: {{ patient.name }}</h2>
+        <h2 class="subtitle">Age: {{ patient.age }}</h2>
+    </div>
+    <form action="{% url 'register-symptoms' pk=patient.pk %}" method="post">
+        <div class="symptoms-grid">
+            {% csrf_token %}
+            {% if symptoms %}
+                {% for symptom in symptoms %}
+                    <div class="symptom-box" data-symptoms="item">
+                        <input value="{{ symptom.pk }}" name="{{ symptom.name }}" type="checkbox" class="symptom-checkbox" >
+                        {{ symptom.name }}
+                    </div>
+                {% endfor %}
+                <button type="button" class="symptom-box" data-toggle="modal" data-target="#modalCreateSymptom"><div id="cross"></div></button>
+                <span class="points"></span>
+            {% else %}
+            <h2>No symptoms registered</h2>
+            {% endif %}
+        </div>
+        <button class="button-black" type="submit">Register Symptoms</button>
+
+    </form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalCreateSymptom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create a new symptom</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <form action="{% url 'create-symptom' pk=patient.pk %}" method="post">
+        {% csrf_token %}
+          <div class="modal-body">
+                <label for="name">Symptom:</label>
+                <input class="input-hospital" name="name" id="name" type="text">
+                <label for="priority">Priority</label>
+                <select class="input-hospital" name="priority" id="priority">
+                    <option value="4">Red</option>
+                    <option value="3">Orange</option>
+                    <option value="2">Yellow</option>
+                    <option value="1">Blue</option>
+                </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="button-gray-modal" data-dismiss="modal">Close</button>
+            <button type="submit" class="button-black-modal">Save symptom</button>
+          </div>
+     </form>
+    </div>
+  </div>
+</div>
+
+<!--<div class="modal fade" id="modalEditSymptom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLongTitle">Create a new symptom</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    <form action="" method="post">-->
+<!--        {% csrf_token %}-->
+<!--          <div class="modal-body">-->
+<!--                <label for="name">Symptom:</label>-->
+<!--                <input class="input-hospital" name="name" id="name" type="text">-->
+<!--                <label for="priority">Priority</label>-->
+<!--                <select class="input-hospital" name="priority" id="priority">-->
+<!--                    <option value="4">Red</option>-->
+<!--                    <option value="3">Orange</option>-->
+<!--                    <option value="2">Yellow</option>-->
+<!--                    <option value="1">Blue</option>-->
+<!--                </select>-->
+<!--          </div>-->
+<!--          <div class="modal-footer">-->
+<!--            <button type="button" class="button-gray-modal" data-dismiss="modal">Close</button>-->
+<!--            <button type="submit" class="button-black-modal">Save symptom</button>-->
+<!--          </div>-->
+<!--     </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div class="modal fade" id="modalDeleteSymptom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLongTitle">Create a new symptom</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    <form action="{% url 'create-symptom' pk=patient.pk %}" method="post">-->
+<!--        {% csrf_token %}-->
+<!--          <div class="modal-body">-->
+<!--                <label for="name">Symptom:</label>-->
+<!--                <input class="input-hospital" name="name" id="name" type="text">-->
+<!--                <label for="priority">Priority</label>-->
+<!--                <select class="input-hospital" name="priority" id="priority">-->
+<!--                    <option value="4">Red</option>-->
+<!--                    <option value="3">Orange</option>-->
+<!--                    <option value="2">Yellow</option>-->
+<!--                    <option value="1">Blue</option>-->
+<!--                </select>-->
+<!--          </div>-->
+<!--          <div class="modal-footer">-->
+<!--            <button type="button" class="button-gray-modal" data-dismiss="modal">Close</button>-->
+<!--            <button type="submit" class="button-black-modal">Save symptom</button>-->
+<!--          </div>-->
+<!--     </form>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+    <script src="{% static 'js/symptoms-list.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}
+<!--                <div data-symptoms="item" class="position-relative" data-symptoms="item">-->
+<!--                    <div class="points" data-points></div>-->
+<!--                    <ul class="dropdown-config" data-config>-->
+<!--                        <li><button type="button" class="" data-toggle="modal" data-target="#modalEditSymptom" style="width: 100%; background: none; border: none">Editar</button></li>-->
+<!--                        <li><button type="button" class="" data-toggle="modal" data-target="#modalDeleteSymptom" style="width: 100%; background: none; border: none">Deletar</button></li>-->
+<!--                    </ul>-->
+<!--                </div>-->

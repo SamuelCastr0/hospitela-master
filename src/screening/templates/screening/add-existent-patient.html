@@ -1,0 +1,32 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Add Existent Patient{% endblock %}
+{% block content %}
+<h1 class="title">Add Existent Patient</h1>
+<form action="{% url 'add-existent-patient' %}" method="post">
+    {% csrf_token %}
+    {% if patient_list %}
+    <div class="grid-patients">
+        {% for patient in patient_list %}
+            <label class="list-row-hospital-black">
+                <input class="symptom-checkbox" type="radio" name="patient" value="{{ patient.pk }}">{{ patient.name }}</label>
+        {% endfor %}
+    </div>
+<button class="button-black" type="submit" style="margin-top: 60px">ADD PATIENT</button>
+
+    {% else %}
+        <h3>No patients available</h3>
+    {% endif %}
+</form>
+<script>
+    items = document.querySelectorAll('.list-row-hospital-black');
+    items.forEach( item => {
+        item.addEventListener('click', event => {
+            items.forEach( item => {
+                item.classList.remove('active')
+            })
+            item.classList.add('active');
+        })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/symptoms-list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="flex-flow login-wrapper">
+        <div class="login-title">
+            <h1 class="title">Hospital</h1>
+        </div>
+        <div class="login-box">
+            <div>
+                <h1 class="subtitle" style="text-align: center; padding: 0 0 30px 0;">Login</h1>
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <label for="email">Email</label>
+                    <input class="input-hospital" type="email" name="email" id="email">
+                    <label for="password">Password</label>
+                    <input class="input-hospital" type="password" name="password" id="password">
+                    <button class="button-black" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

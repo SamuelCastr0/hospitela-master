@@ -1,0 +1,25 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Generate Diagnostic{% endblock %}
+{% block content %}
+    <h1 class="title">Generate Diagnostic</h1>
+    <div class="flex-flow">
+        <p class="subtitle">Patient: {{ patient.name }}</p>
+        <p class="subtitle">Age: {{ patient.age }}</p>
+    </div>
+
+<!--    <p class="subtitle">Symptoms:</p>-->
+    <ul class="symptoms-grid">
+        {% for symptom in symptoms %}
+             <li class="symptom-box cursor-normal">{{ symptom }}</li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'generate-diagnostic' pk=patient.pk %}" method="post">
+        {% csrf_token %}
+        <label for="comorbidity">Diagnostic:</label>
+        <input class="input-hospital" type="text" name="comorbidity" id="comorbidity">
+        <label for="prescription">Prescription:</label>
+        <textarea class="input-hospital" name="prescription" id="prescription"></textarea>
+        <button class="button-black" type="submit">Submit</button>
+    </form>
+{% endblock %}

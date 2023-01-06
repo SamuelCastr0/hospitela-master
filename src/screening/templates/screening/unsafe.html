@@ -1,0 +1,11 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}UNSAFE{% endblock %}
+
+{% block content %}
+<h1 class="title">ESTA ROTA NÃO É SEGURA!</h1>
+
+
+<a class="button-black" style="margin-top: 30px" href="{% url 'index' %}" style="margin-top: 100px;">VOLTAR PARA SEGURANÇA</a>
+{% endblock %}
